@@ -11,17 +11,6 @@ _In project Machu Picchu, we aim to use 21st century tools to change the way hum
 
 This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy to laypersons (non-programmers), instead of coding on JavaScript, Python or a programming language, in this example we develop acomplete Excel application using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
 
-**Why do we use ChatGPT 5.2** instead of other chatbots (Gemini 3, Claude, Mistral, DeepSeek or others)? The reason is that I have tested the free tiers of many of them when preparing this post and ChatGPT gave the most useful answers.
-
-- ChatGPT 5.2 hallucinates the least when the question is difficult and not widely known in public documents. For example, when on Excel for Mac a I use a LAMBDA function inside a MAP function to populate 2D array cells created with MAKEARRAY. Don't be scared by these names, I barely know them too before I started this project, but I learned how to use them with the chatbots.
-- Gemini is the second best chatbot. Most of the time it gives pertinent advice. But in some implementation imperfections of Excel on Mac, it keeps reasoning around without reaching a solution. I use it as a cross-check of ChatGPT answer: I give it the code of ChatGPT and ask it to comment and improve.
-- Claude Sonnet 4.5 is very popular among programmers but its free tier is not usable for our purposes. It is complicated to set up Claude to accept uploading of Excel files for it to analyze and criticize. In our workflow, to avoid making a long description of what we want to achieve, we start by making a prototype, that we upload to the chatbot and ask it to do better.
-- Mistral, DeepSeek 3, Qwen 2 (in their free tiers) are truly not up to the task.
-
-Keep in mind that a modern chatbot doesn't simply call on a LLM (Large Language Model) to generate answers. It is now a complex orchestrator of other tools than the LLM (path generator and evaluator, web crawler, adversarial challenger etc.) to find the best answer. Therefore, an outstanding LLM may perform poorly if it doesn't have well configured its environment of support tools.
-
-_The situation of chatbots using LLMs is similar to engineering a car by starting with a powerful engine and then add supporting accessories to make it a comfortable limousine, or SUV, or a van. In our experience, Claude may be good for coding apps, but less effective to make a real-life Excel worksheet._
-
 # Overview of our purpose
 
 ## AI-powered Workflow in a Nutshell
@@ -36,6 +25,46 @@ Hints:
 - Instead of describing textually what you want, you make a quick prototype and give it to the chatbot to explore and comment.
 - Often, irrelevant criticisms of the chatbot about your prototype announces future misunderstandings when asking it to generate code. Clarify these criticisms and start a new session.
 - Start new session as often as practical, as soon as the chatbot has achieved a significant step. This will clean the context, focus the discussion and avoid hallucinations.
+
+## Spoiler Results
+
+Spoiler results list what we have learned from this tutorial if we don't have time to go into details:
+
+- ChatGPT 5.2 hallucinates the least when the question is difficult and not widely known in public documents. For example, when on Excel for Mac a I use a LAMBDA function inside a MAP function to populate 2D array cells created with MAKEARRAY. Don't be scared by these names, I barely know them too before I started this project, but I learned how to use them with the chatbots.
+- Gemini is the second best chatbot. Most of the time it gives pertinent advice. But in some implementation imperfections of Excel on Mac, it keeps reasoning around without reaching a solution. I use it as a cross-check of ChatGPT answer: I give it the code of ChatGPT and ask it to comment and improve.
+- Claude Sonnet 4.5 is very popular among programmers but its free tier is not usable for our purposes. It is complicated to set up Claude to accept uploading of Excel files for it to analyze and criticize. In our workflow, to avoid making a long description of what we want to achieve, we start by making a prototype, that we upload to the chatbot and ask it to do better.
+- Mistral, DeepSeek 3, Qwen 2 (in their free tiers) are truly not up to the task.
+
+So we use ChatGPT 5.2 instead of other chatbots: in this particular case, ChatGPT free tier gave the most useful answers.
+
+Keep in mind that a modern chatbot doesn't simply call on a LLM (Large Language Model) to generate answers. It is now a complex orchestrator of other tools than the LLM (path generator and evaluator, web crawler, adversarial challenger etc.) to find the best answer. Therefore, an outstanding LLM may perform poorly if it doesn't have well configured its environment of support tools.
+
+_The situation of chatbots using LLMs is similar to engineering a car by starting with a powerful engine and then add supporting accessories to make it a comfortable limousine, or SUV, or a van. In our experience, Claude may be good for coding apps, but less effective to make a real-life Excel worksheet._
+
+## What this article is made of
+
+This article carries several types of content:
+-	In a Medium article, a LinkedIn article, and a Github README.md file is hosted the textual explanation. It describes our purposes, the chatbot prompts and parts of the chatbot reply to introduce the next prompt. It contains also our comments on the bot replies.
+-	The full chatbot answers and the generated codes are in github md files, repository tutorial_chiquitaAI.
+-	The intermediate worksheets are also in the same github repository.
+
+# Full scale example: Excel Tool for Expenses Tracking
+
+In this example of January 2026, I use ChatGPT 5.2 in Thinking mode. The 2 other chatbots that have this reasoning mode are : Google Gemini 3 and Claude 4.5.
+
+I want to realize a cost analysis tracking tool for a private aircraft. This is not trivial example project and is composed of 3 sub-projects :
+
+1.	Re-engineer the initial hack of a yearly expense tracking tool. This is the purpose of this post.
+
+2.	After the AI-refactored tool is validated, add the operations costs (fuel, landing fees) to make it a flight billing and operations. This step involves understanding the nature of the activities and is where AI helps a lot because it converts the human language to computer processes.
+
+3.	Re-engineer both the expense tracking, the flight billing and the refueling operations to make statistics and a KPI dashboard. This stage will only be sketched.
+
+To start, I made a sample Excel worksheet to show what I want to do. Most of the formulas are hard coded cell by cell, which is a typical hack, made to describe and explore a solution. 
+
+This tool has 3 Excel tabs:
+
+- "Data": this table carries the bulk expenses data, each expense is assigned to a category
 
 ![Screenshot of "Data"](./images/001_proto_screenshot.jpg)
 
