@@ -48,6 +48,8 @@ This article carries several types of content:
 -	The full chatbot answers and the generated codes are in github md files, repository tutorial_chiquitaAI.
 -	The intermediate worksheets are also in the same github repository.
 
+If you don't have time to look at details, you can stop reading here. If you continue, be prepared to reproduce by yourself the results with a free ChatGPT account and Excel 365.
+
 # Full scale example: Excel Tool for Expenses Tracking
 
 In this example of January 2026, I use ChatGPT 5.2 in Thinking mode. The 2 other chatbots that have this reasoning mode are : Google Gemini 3 and Claude 4.5.
