@@ -117,21 +117,10 @@ The "Thinking" answer is more detailed. This may lure you to accept ChatGPT prop
 -	If you illustrate by a prototype, it gives ChatGPT a rough idea of what you want. If you ask it to code immediately after this early analysis of the prototype, ChatGPT will fill the blanks with its own training memories. If you disagree with the output, you can correct it but unless you say explicitly that its assumptions are wrong, ChatGPT will keep polluting the context with them.
 -	At this stage, instead of coding, I recommend to get straight what ChatGPT has assumed wrongly. From these corrections, ask it which assumptions that my latest corrections made it modify.
 
-My corrections are in the following prompt:
--	From now on, the re-factored worksheet will be composed of the data entry sheets and read-only sheets. Data entry sheets are composed of Expenses, AVGAS (fueling), Flights (pilot, time, location, Hobbs, ) and Contribs. All data entry have a column FundSource to trace who is paying. Read-only sheets are composed of Params, Stats, Overview (Dashboard & KPI). A last sheet Audit contains the sanity check formulas, sheet Misc is for other needs and a README sheet is the user guide.
--	Sheet Data needs no Subcategories.
--	Sheet Data needs no Subcategories. Buit it will need a helper column Type (Fixed, Variable, Exceptional).
--	Sheet Data will never contain flight and Hobbs value, nor AVGAS. This information will be in a distinct sheet Flights, respectively AVGAS.
--	Sheet Data: In Europe there are a lot of VAT rates depending on the year and on the country. Defining TVARate by XLOOKUP is overly complicated. We simply use Params to do validation.
--	Sheet Lookups: There are some parameters that can be used with XLOOKUP like the dry hourly cost for pilots. Some others such as fuel price, consumption per hour, fuel per hour, fuel cost per hour, will be the average counted since the beginning until the moment of the flight.
--	Sheet Lookups: There is currently no amortization yet. Only in future versions.
--	Sheet Calc_Yearly: Very interesting use of SUMIFS which improves on pivot tables. We keep working on this solution from now on. We will call this sheet Stats.
--	Sheet Calc_Yearly: Keep in mind that the SUMIFS giving average hourly consumption, fuel price, yearly variable costs, fixed costs fuel costs are reused to calculate the cost of each trip in Flights in the path Data > Average > Trip cost. We must still be wary of calculation loops.
--	Sheet Calc_Yearly: Let's drop Amortization for the time being. It will be introduced later after a few months using this Excel worksheet.
--	Sheets KPIs & Dashboard: Merge these 2 into a sheet named Overview. It is the read-only surface while Stats is the calculation engine.
--	Sheet Audits is a good contribution from having ChatGPT "think". Let's keep it.
+My corrections are in the prompt stored in prompt_03.md>.
 
-Acknowledge simply that you'll take these remarks into account before we continue.
+The answer of ChatGPT is stored in answer_03.md
+
 
 
 # a
