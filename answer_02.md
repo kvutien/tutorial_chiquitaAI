@@ -1,4 +1,4 @@
-## Thoughtful, detailed description & requirements (for rebuilding the workbook)
+# Thoughtful, detailed description & requirements (for rebuilding the workbook)
 
 Nice — I’ll treat this as my internal “thinking” about the file and lay out a clear, implementable specification you can use to rebuild the workbook on **Excel 365 for Mac** (no Power Pivot / Data Model). Below I give a precise, non-layout-dependent description of the file contents, the data model we’ll build instead, the exact columns / tables / named formulas, and example formulas and checks. This is written as requirements and implementation notes you (or I) can directly follow to produce a cleaner workbook with the same functionality.
 

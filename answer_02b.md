@@ -1,3 +1,5 @@
+# Concrete example of replacement of Pivot tables
+
 Good catch — you’re absolutely right to call that out 👍
 From now on I’ll **strictly assume**:
 

@@ -1,3 +1,5 @@
+# Introduction of the session
+
 Got it 👍 I’ll keep that mindset for the whole session: **Excel 365 for Mac, no Power Pivot / Data Model, best-practice worksheet engineering, and explanations that assume solid Excel basics but not advanced design patterns.**
 
 Below is a **structured, detailed description of the uploaded workbook**, written explicitly so it can serve as **functional and technical requirements** for rebuilding it in a cleaner, more robust, and more maintainable way.
