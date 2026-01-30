@@ -93,9 +93,9 @@ This tool has 3 Excel tabs:
 
 I upload this Excel example to Chat GPT (no Thinking, no Deep research) and asked. This prompt is also in the github as  [(`prompt_01.md`)](./prompt_01.md), the answer of ChatGPT is [(answer_01.md)](./answer_01.md):
 
-_Keep in mind for the whole session that you are a highly experienced Excel programmer, you use Excel 365 for Mac with EU locales and, although I'm familiar with Excel, there are many advanced aspects I'm not too familiar with. You know that Power Pivot and Data Model are not implemented in Excel for Mac._
+    Keep in mind for the whole session that you are a highly experienced Excel programmer, you use Excel 365 for Mac with EU locales and, although I'm familiar with Excel, there are many advanced aspects I'm not too familiar with. You know that Power Pivot and Data Model are not implemented in Excel for Mac.
 
-_Describe in detail the uploaded file so that you can use your description as requirements to create an Excel worksheet with the same functionalities but better engineered and using Excel best practices, with easy-to-understand variables and comments._
+    Describe in detail the uploaded file so that you can use your description as requirements to create an Excel worksheet with the same functionalities but better engineered and using Excel best practices, with easy-to-understand variables and comments.
 
 The answer of ChatGPT follows. This answer is also in the github as [(`answer_01.md`)](./answer_01.md)
 
