@@ -34,18 +34,21 @@ Illustration:
 
 ## Spoiler Results
 
-Spoiler results list what we have learned from this tutorial if we don't have time to go into details:
+Spoiler results list what we have learned from this tutorial if you don't have time to go into details:
 
-- ChatGPT 5.2 hallucinates the least when the question is difficult and not widely known in public documents. For example, when on Excel for Mac a I use a LAMBDA function inside a MAP function to populate 2D array cells created with MAKEARRAY. Don't be scared by these names, I barely know them too before I started this project, but I learned how to use them with the chatbots.
-- Gemini is the second best chatbot. Most of the time it gives pertinent advice. But in some implementation imperfections of Excel on Mac, it keeps reasoning around without reaching a solution. I use it as a cross-check of ChatGPT answer: I give it the code of ChatGPT and ask it to comment and improve.
-- Claude Sonnet 4.5 is very popular among programmers but its free tier is not usable for our purposes. It is complicated to set up Claude to accept uploading of Excel files for it to analyze and criticize. In our workflow, to avoid making a long description of what we want to achieve, we start by making a prototype, that we upload to the chatbot and ask it to do better.
+- ChatGPT 5.2 hallucinates the least when the question is difficult and not widely known in public documents. For example, when on Excel for Mac a I use a LAMBDA function inside a MAP function to populate 2D array cells created with MAKEARRAY.
+  -  Don't be scared by these names, I barely know them too before I started this project, but I learned how to use them with the chatbots.
+- Gemini is the second best chatbot. Most of the time it gives pertinent advice. But in some implementation imperfections of Excel on Mac, it keeps reasoning around without reaching a solution. I use Gemini as a cross-check of ChatGPT answer: I give it the code of ChatGPT and ask it to comment and improve.
+- Claude Sonnet 4.5 is very popular among programmers but its free tier is not usable for our purposes. It is complicated to set up Claude to upload Excel files, for it to analyze and criticize. This uploading is critical, because we ask the chatbot to comment an implementation.
 - Mistral, DeepSeek 3, Qwen 2 (in their free tiers) are truly not up to the task.
 
 So we use ChatGPT 5.2 instead of other chatbots: in this particular case, ChatGPT free tier gave the most useful answers.
 
-Keep in mind that a modern chatbot doesn't simply call on a LLM (Large Language Model) to generate answers. It is now a complex orchestrator of other tools than the LLM (path generator and evaluator, web crawler, adversarial challenger etc.) to find the best answer. Therefore, an outstanding LLM may perform poorly if it doesn't have well configured its environment of support tools.
+Keep in mind that a modern chatbot doesn't simply call on a LLM (Large Language Model) to generate answers. A state-of-the-art chatbot is a complex orchestrator of tools other than the LLM (path generator and evaluator, web crawler, adversarial challenger etc.) to find the best answer. Therefore, an outstanding LLM may perform poorly if it doesn't have well configured its environment of support tools.
 
-_The situation of chatbots using LLMs is similar to engineering a car by starting with a powerful engine and then add supporting accessories to make it a comfortable limousine, or SUV, or a van. In our experience, Claude may be good for coding apps, but less effective to make a real-life Excel worksheet._
+_The situation of chatbots using LLMs is similar to engineering a car by starting with a powerful engine and then add supporting accessories to make it a comfortable limousine, or SUV, or a van. In our experience, Claude may be good for coding apps, but less effective to make a real-life Excel worksheet._  
+
+    I haven't tested Claude for Excel because it is a feature of a paid service.
 
 ## What this article is made of
 
