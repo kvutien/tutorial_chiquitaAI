@@ -27,7 +27,7 @@ Hints:
 - Start new session as often as practical, as soon as the chatbot has achieved a significant step. This will clean the context, focus the discussion and avoid hallucinations.
 
 Illustration:
-- Step A.1 is illustrated in "No-Think" mode by prompt 1 [(prompt_01.md)](./prompt_01.md), the answer of ChatGPT is [(answer_01.md)](./answer_01.md)
+- Step A.1 is illustrated in "No-Think" mode by prompt 1 [(./prompt_01.md)](./prompt_01.md), the answer of ChatGPT is [(answer_01.md)](./answer_01.md)
 - Step A.1 is illustrated in "Think" mode by the same prompt 1 [(prompt_01.md)](./prompt_01.md), the answer of ChatGPT is [(answer_01b.md)](./answer_01b.md)
 - Step A.2 is a question for example by prompt 2 [(prompt_02.md)](./prompt_02.md), the clarification of ChatGPT is [(answer_02.md)](./answer_02.md)
 - Step A.3 is illustrated in "Think" mode by prompt 3 [(prompt_03.md)](./prompt_03.md), the clarification of ChatGPT is [(answer_03.md)](./answer_03.md)
@@ -53,8 +53,8 @@ _The situation of chatbots using LLMs is similar to engineering a car by startin
 ## What this article is made of
 
 This article carries several types of content:
--	In a Medium article, a LinkedIn article, and a Github README.md file is hosted the textual explanation. It describes our purposes, the chatbot prompts and parts of the chatbot reply to introduce the next prompt. It contains also our comments on the bot replies.
--	The full chatbot answers and the generated codes are in github md files, repository tutorial_chiquitaAI.
+-	The textual explanation is hosted in a Medium article, a LinkedIn article, and a Github README.md file [(https://github.com/kvutien/tutorial_chiquitaAI/)]. It describes our purposes, the chatbot prompts and parts of the chatbot reply to introduce the next prompt. It contains also our comments on the bot replies.
+-	The full chatbot answers and the generated codes are in the above github repository.
 -	The intermediate worksheets are also in the same github repository.
 
 If you don't have time to look at details, you can stop reading here. If you continue, be prepared to reproduce by yourself the results with a free ChatGPT account and Excel 365.
@@ -91,13 +91,13 @@ This tool has 3 Excel tabs:
 
 ## Prompt: Describe Data and Actions
 
-I upload this example to Chat GPT (no Thinking, no Deep research) and asked (this prompt is also in the github as `promp_01.md`):
+I upload this Excel example to Chat GPT (no Thinking, no Deep research) and asked. This prompt is also in the github as  [(`prompt_01.md`)](./prompt_01.md), the answer of ChatGPT is [(answer_01.md)](./answer_01.md):
 
-_Keep in mind for the whole session that you are a highly experienced Excel programmer, you use Excel 365 for Mac and although I'm familiar with Excel there are many advanced aspects I'm not too familiar with. You know that Power Pivot and Data Model are not implemented in Excel for Mac._
+_Keep in mind for the whole session that you are a highly experienced Excel programmer, you use Excel 365 for Mac with EU locales and, although I'm familiar with Excel, there are many advanced aspects I'm not too familiar with. You know that Power Pivot and Data Model are not implemented in Excel for Mac._
 
 _Describe in detail the uploaded file so that you can use your description as requirements to create an Excel worksheet with the same functionalities but better engineered and using Excel best practices, with easy-to-understand variables and comments._
 
-The answer of ChatGPT follows. This answer is also in the github as `answer_01.md`
+The answer of ChatGPT follows. This answer is also in the github as [(`answer_01.md`)](./answer_01.md)
 
 ## ChatGPT Describes Data and Actions ("No Thinking" mode)
 The overall structure is correctly perceived.
