@@ -1,335 +1,258 @@
-# Thoughtful, detailed description & requirements (for rebuilding the workbook)
+# Concrete example of replacement of Pivot tables
 
-Nice — I’ll treat this as my internal “thinking” about the file and lay out a clear, implementable specification you can use to rebuild the workbook on **Excel 365 for Mac** (no Power Pivot / Data Model). Below I give a precise, non-layout-dependent description of the file contents, the data model we’ll build instead, the exact columns / tables / named formulas, and example formulas and checks. This is written as requirements and implementation notes you (or I) can directly follow to produce a cleaner workbook with the same functionality.
+*return to the main article here [(README.md)](./README.md)*
 
----
+Good catch — you’re absolutely right to call that out 👍
+From now on I’ll **strictly assume**:
 
-## Executive summary (one-sentence)
+* **EU locale**
 
-The workbook is a **transaction-level aircraft cost & usage tracker (Mooney LX-JCO)** for 2013–2025 that aggregates transactions into yearly variable/fixed costs, computes per-hour rates, long-term averages and provisioning/amortization schedules — but is currently layout-bound and brittle; rebuild it as a single transactions table + lookup tables + calculation sheet + KPI/dashboard, using structured tables, named formulas, `SUMIFS`/`XLOOKUP`/`LET`/`LAMBDA`, and strong validation.
+  * List separator: **`;`**
+  * Decimal separator: **`,`**
+* **Excel 365 for Mac**
 
----
+  * No Power Pivot / Data Model
+  * Modern functions OK (`LET`, `LAMBDA`, `XLOOKUP`, dynamic arrays)
+* You know Excel well, but I’ll **spell out advanced patterns clearly**
 
-## File inventory (logical sheets the uploaded file contains or implies)
-
-1. `OLD-Data` — raw transactions (date, description, category, amounts, fuel liters, man-hours, VAT, etc.)
-2. `OLD-Stats` — year-by-year calculations (2013–2025 across columns) that split costs into variable/fixed/one-off and compute per-hour rates
-3. `OLD-KPI` — single-column KPIs that sum or reference rows in `OLD-Stats`
-4. (implicit) category lists / lookup tables and assumptions (VAT rates, category classification)
-5. (implicit) some audit checks and cumulative Hobbs/flight hours tracking
-
----
-
-## High-level design goals for the rebuild
-
-* **Single source of truth:** 1 structured Excel Table `tblTransactions` (no duplicate row-level calculations elsewhere).
-* **Separation of concerns:** Data layer (tables), Calculation layer (formulas, named formulas), Presentation layer (KPIs + Dashboard).
-* **Year-driven, not column-driven:** produce dynamic year lists using `UNIQUE`/`SORT`/`SEQUENCE` and `SUMIFS`, so adding a new year (new transactions) requires zero manual formula edits.
-* **Human-readable names & comments:** named ranges and named formulas (e.g. `GetYearCategoryAmount`) and a `README`/`Documentation` sheet describing every variable.
-* **Excel 365 for Mac compatible:** avoid Power Pivot, Data Model, Windows-only features; use `LET`, `LAMBDA`, `XLOOKUP`, `SUMIFS`, structured references and implicit intersection-friendly formulas.
-* **Robust validation & audit:** data validation for categories, VAT rates table, automated data quality checks.
+Below is a **concrete, realistic example** of what the **`Calc_Yearly` sheet looks like once filled**, including **values and formulas**, exactly as it would exist in Excel (EU syntax).
 
 ---
 
-## Detailed sheet-by-sheet specification (exact fields, constraints, and formulas)
+# Example: `Calc_Yearly` sheet (FILLED)
 
-### Sheet: `Data` (implementation name)
-
-**Purpose:** raw transaction table (single canonical table).
-
-Create an Excel Table named `tblTransactions`.
-
-Columns (exact names — capitalization matters for structured refs):
-
-* `Date` (Date) — transaction date. Validation: date only.
-* `Year` (Number, calculated) — `=YEAR([@Date])` as a calculated column.
-* `Source` (Text) — free text / supplier / note (optional).
-* `Description` (Text) — transaction description.
-* `Category` (Text) — validated drop-down from `tblCategories[Category]`.
-* `SubCategory` (Text) — optional (e.g., "Oil", "50h", "Avionics").
-* `Type` (Text) — validated: `Variable`, `FixedRecurring`, `FixedNonRecurring`, `Capital` (used for aggregation rules).
-* `AmountHT` (Number) — net amount (ex-VAT).
-* `TVARate` (Number) — VAT decimal (e.g. `0.20`). Default from `tblVATRates` via `XLOOKUP` in calculated column if blank.
-* `VATAmount` (Number, calculated) — `=[@AmountHT]*[@TVARate]`
-* `AmountTTC` (Number, calculated) — `=[@AmountHT]+[@VATAmount]`
-* `AVGASLiters` (Number) — liters purchased (blank for non-fuel rows).
-* `ManHours` (Number) — man-hours charged (blank if none).
-* `HobbsStart` (Number) — optional, only used if transactions record Hobbs meter updates
-* `HobbsEnd` (Number) — optional
-* `FlightHours` (Number, calculated if Hobbs change recorded) — `=IF(AND([@[HobbsStart]]<>"",[@[HobbsEnd]]<>""),[@[HobbsEnd]]-[@[HobbsStart]],[@FlightHours])` — keep flight/hobbs entries consistent (or store flight/hobbs in separate table if preferred).
-* `Notes` (Text) — free comment.
-
-Implementation notes:
-
-* Make `Category` a validated pick-list (see `tblCategories` sheet).
-* Make `TVARate` auto-populate with `XLOOKUP([@SomeKey], tblVATRates[Key], tblVATRates[Rate], 0.0)` if user leaves blank.
-* All column calculations use table-calculated columns (no copied formulas).
+This sheet is **pure calculation**.
+No manual inputs.
+Everything flows from `tblTransactions` (+ `tblAmortization`).
 
 ---
 
-### Sheet: `Lookups`
+## 1. Overall layout (row-oriented, year-driven)
 
-Contain small tables:
+Unlike your old `OLD-Stats` (years in columns), this is **normalized**:
 
-1. `tblCategories` — columns: `Category`, `Type` (Variable/FixedRecurring/FixedNonRecurring/Capital), `CostGroup` (e.g., Fuel, Maintenance, Insurance), `DefaultTVAKey` (optional).
-2. `tblVATRates` — `VATKey`, `Rate` (e.g. `FRStandard`, `0.20`).
-3. `tblAmortization` — rows describing capital items: `Item`, `PurchaseDate`, `Amount`, `YearsToAmortize`.
-4. `tblRates` — other configurable per-year or per-unit rates (e.g., hourly provisioning target, fuel price benchmark) if desired.
-
-Use these tables for data validation and mapping.
-
----
-
-### Sheet: `Calc_Yearly` (calculation layer)
-
-**Purpose:** compute year-by-year aggregates from `tblTransactions` using formulas (not manual columns per year).
-
-Structure:
-
-* A left column `YearList` created dynamically:
-
-  ```excel
-  =LET(years,SORT(UNIQUE(tblTransactions[Year])), FILTER(years,years<>""))
-  ```
-
-  Put `YearList` vertically (one cell per year) using dynamic array or spilled formula.
-
-* For each important aggregation we compute a column:
-
-  * `Total_AmountHT` per year:
-
-    ```excel
-    =SUMIFS(tblTransactions[AmountHT], tblTransactions[Year], $A2)
-    ```
-  * `Total_VAT`:
-
-    ```excel
-    =SUMIFS(tblTransactions[VATAmount], tblTransactions[Year], $A2)
-    ```
-  * `Total_TTC`:
-
-    ```excel
-    =SUMIFS(tblTransactions[AmountTTC], tblTransactions[Year], $A2)
-    ```
-  * `Fuel_Liters`:
-
-    ```excel
-    =SUMIFS(tblTransactions[AVGASLiters], tblTransactions[Year], $A2)
-    ```
-  * `ManHours`:
-
-    ```excel
-    =SUMIFS(tblTransactions[ManHours], tblTransactions[Year], $A2)
-    ```
-  * `Variable_Costs`:
-
-    ```excel
-    =SUMIFS(tblTransactions[AmountHT], tblTransactions[Year], $A2, tblTransactions[Type], "Variable")
-    ```
-  * `FixedRecurring_Costs`:
-
-    ```excel
-    =SUMIFS(tblTransactions[AmountHT], tblTransactions[Year], $A2, tblTransactions[Type], "FixedRecurring")
-    ```
-  * `FixedNonRecurring_Costs`:
-
-    ```excel
-    =SUMIFS(tblTransactions[AmountHT], tblTransactions[Year], $A2, tblTransactions[Type], "FixedNonRecurring")
-    ```
-  * `Capital_Amortization` — computed by spreading rows in `tblAmortization` across amortization years. Implementation example below.
-
-* Derived metrics per year (use `LET` to keep formulas readable):
-
-  * `Total_Costs = Total_AmountHT + Total_VAT` (or `Total_TTC`)
-  * `Variable_perFlightHour = Variable_Costs / FlightHours` (guard division by zero)
-  * `Fixed_perFlightHour = FixedRecurring_Costs / FlightHours`
-  * `Provision_Monthly = (FixedRecurring_Costs / 12)` or a smoothed provisioning approach.
-
-**Amortization schedule (example implementation):**
-
-* In `Calc_Yearly`, compute `Capital_Amortization` as sum over `tblAmortization` of the portion of each item that falls into the year.
-* A simple method: in `tblAmortization` add `StartYear` and `EndYear` (StartYear = YEAR(PurchaseDate); EndYear = StartYear + YearsToAmortize - 1). Then:
-
-  ```excel
-  =SUMPRODUCT( (tblAmortization[StartYear] <= $A2) * (tblAmortization[EndYear] >= $A2) * (tblAmortization[Amount] / tblAmortization[YearsToAmortize]) )
-  ```
-
-  This spreads cost evenly year-by-year.
-
-**Reusable named formula (recommended):**
-
-* Name: `GetYearCategoryAmount`
-* Definition (LAMBDA):
-
-  ```
-  =LAMBDA(year, cat, SUMIFS(tblTransactions[AmountHT], tblTransactions[Year], year, tblTransactions[Category], cat))
-  ```
-* Use `GetYearCategoryAmount($A2, "Fuel")`.
-
----
-
-### Sheet: `KPIs` (presentation)
-
-**Purpose:** single place with human-friendly KPIs, each KPI referencing named formulas or `Calc_Yearly` cells, not raw `OLD-Stats` row numbers.
-
-Suggested KPIs (examples):
-
-* `TotalCost_AllYears`:
-
-  ```excel
-  =SUM(Calc_Yearly[Total_TTC])
-  ```
-* `AverageVariablePerHour`:
-
-  ```excel
-  =AVERAGE( FILTER( Calc_Yearly[Variable_perFlightHour], Calc_Yearly[FlightHours] > 0) )
-  ```
-* `FuelConsumed_Total`:
-
-  ```excel
-  =SUM(Calc_Yearly[Fuel_Liters])
-  ```
-
-All KPIs should reference named column headers or named ranges.
-
----
-
-### Sheet: `Dashboard`
-
-**Purpose:** visual summary for decision makers.
-
-* Use sparklines, small charts, per-year bars for Total Cost, Variable Cost/Hour, Fuel liters.
-* Add slicers only if they work on Tables (Excel for Mac supports slicers on Tables in recent versions — if not, use drop-downs & formulas).
-* Ensure all visuals are driven by dynamic year list; charts refer to dynamic ranges.
-
----
-
-### Sheet: `Audit` / `Checks`
-
-**Purpose:** automated quality checks.
-
-Examples (cells with clear PASS/FAIL):
-
-* `MissingCategoryCount = COUNTBLANK(tblTransactions[Category])`
-* `NegativeAmountCount = COUNTIFS(tblTransactions[AmountHT],"<0")`
-* `VATMismatchCount = COUNTIFS(tblTransactions[VATAmount], "<>" , ROUND(tblTransactions[AmountHT]*tblTransactions[TVARate], 2))`
-* `YearContinuityCheck` — compares year list against expected span (2013 to MAX Year) and flags missing years.
-* `TransactionsNotAssignedType` = COUNTIFS(tblTransactions[Type], "")
-
-Show detailed lists when checks fail using `FILTER` to display offending rows.
-
----
-
-## Naming conventions, comments, and documentation
-
-* Table names: `tblTransactions`, `tblCategories`, `tblVATRates`, `tblAmortization`, `tblRates`.
-* Named formulas: `Years`, `GetYearTotal`, `GetYearCategoryAmount`, `GetTotalForType`.
-* All named formulas must be short, descriptive, and recorded in `Documentation` sheet with:
-
-  * Name, signature (parameters), description, example use.
-* For any complex formula cell, add a cell comment (right-click → Insert Comment) explaining:
-
-  * What it calculates
-  * Inputs it depends on (table/columns)
-  * Why it's written that way (e.g., amortization uses SUMPRODUCT to avoid helper columns)
-* Keep a `README` sheet with:
-
-  * Purpose of workbook
-  * How to add a new Transaction
-  * How to add a new Category / VAT rate
-  * Release/version history (ChangeLog)
-
----
-
-## Example formulas (copy-paste-ready) — Excel 365 for Mac compatible
-
-1. **Dynamic Years list (single cell that spills down):**
-
-```excel
-=LET(yrs, SORT(UNIQUE(tblTransactions[Year])), FILTER(yrs, yrs<>""))
+```
+A        B            C              D                E               F              G               H
+----------------------------------------------------------------------------------------------------------
+Year | FlightHours | VariableCost | FixedRecurring | FixedNonRec | CapitalAmort | TotalCostHT | CostPerHour
 ```
 
-2. **Sum of AmountHT for category "Fuel" in year at A2:**
+Each **row = one year**
+Each **column = one metric**
+
+This is the single biggest engineering improvement.
+
+---
+
+## 2. Filled example (with plausible values)
+
+| Year | FlightHours | VariableCost (€) | FixedRecurring (€) | FixedNonRec (€) | CapitalAmort (€) | TotalCostHT (€) | CostPerHour (€/h) |
+| ---: | ----------: | ---------------: | -----------------: | --------------: | ---------------: | --------------: | ----------------: |
+| 2019 |        82,5 |           12 430 |             18 900 |           3 200 |            4 500 |          39 030 |            472,48 |
+| 2020 |        61,2 |            9 850 |             19 300 |               0 |            4 500 |          33 650 |            549,67 |
+| 2021 |        97,8 |           14 120 |             19 800 |           6 400 |            4 500 |          44 820 |            458,39 |
+| 2022 |       110,4 |           16 980 |             20 100 |           1 200 |            4 500 |          42 780 |            387,39 |
+| 2023 |       103,6 |           15 740 |             20 500 |               0 |            4 500 |          40 740 |            393,24 |
+| 2024 |       118,9 |           18 320 |             21 000 |           9 800 |            4 500 |          53 620 |            451,11 |
+
+(2025 would appear automatically once data exists)
+
+---
+
+## 3. Exact formulas (EU locale, Excel for Mac)
+
+### Column A — `Year`
+
+**A2 (spills down automatically):**
 
 ```excel
-=SUMIFS(tblTransactions[AmountHT], tblTransactions[Year], $A2, tblTransactions[Category], "Fuel")
-```
-
-3. **Variable costs for year (using Type column):**
-
-```excel
-=SUMIFS(tblTransactions[AmountHT], tblTransactions[Year], $A2, tblTransactions[Type], "Variable")
-```
-
-4. **Named LAMBDA (define in Name Manager):**
-   Name: `GetYearCategoryAmount`
-   Refers to:
-
-```excel
-=LAMBDA(y,cat, SUMIFS(tblTransactions[AmountHT], tblTransactions[Year], y, tblTransactions[Category], cat))
-```
-
-Use:
-
-```excel
-=GetYearCategoryAmount($A2,"Avionics")
-```
-
-5. **Amortization contribution for year in cell with year in $A2 (polls tblAmortization):**
-
-```excel
-=SUMPRODUCT( (tblAmortization[StartYear] <= $A2) * (tblAmortization[EndYear] >= $A2) * (tblAmortization[Amount] / tblAmortization[YearsToAmortize]) )
-```
-
-6. **Guarded per-hour metric:**
-
-```excel
-=IF(Calc_Yearly[@FlightHours]>0, Calc_Yearly[@Variable_Costs] / Calc_Yearly[@FlightHours], NA())
+=LET(
+  yrs; SORT(UNIQUE(tblTransactions[Year]));
+  FILTER(yrs; yrs<>"")
+)
 ```
 
 ---
 
-## UX & practical recommendations
+### Column B — `FlightHours`
 
-* Use **structured table references** everywhere (no whole-column references like A:A).
-* Avoid volatile functions (e.g., `INDIRECT`, `OFFSET`) where possible — they slow recalculation.
-* Keep raw transactions table on its own sheet and freeze header row.
-* Use **Data Validation** (List) for `Category`, `Type`, `TVARateKey` to avoid typos.
-* Protect the `Lookups`, `Calc_Yearly`, `KPIs` sheets (lock formulas), allow editing of `Data` only.
-* Use `XLOOKUP` for mapping defaults (`XLOOKUP(lookup, lookup_array, return_array, 0)`).
+(assuming `tblTransactions[FlightHours]` is already populated)
 
----
+**B2:**
 
-## Migration plan (how to convert the old workbook to the new structure)
-
-1. Copy `OLD-Data` rows into `tblTransactions` — map columns and correct types.
-2. Create `tblCategories` from unique Category texts, classify them into `Type`.
-3. Recompute `TVARate` using `tblVATRates`.
-4. Populate `tblAmortization` from any capital/large purchase rows.
-5. Populate `Calc_Yearly` dynamic years; validate totals against old `OLD-Stats` for a few years to confirm parity.
-6. Build `KPIs` and `Dashboard`.
-7. Run `Audit` checks and fix data problems.
+```excel
+=SUMIFS(
+  tblTransactions[FlightHours];
+  tblTransactions[Year]; $A2
+)
+```
 
 ---
 
-## Edge cases & special handling
+### Column C — `VariableCost`
 
-* **Free-text categories:** map them to normalized categories via `tblCategories` and consider creating a mapping table for historical data where values differ by spelling.
-* **Multiple currencies:** if transactions have more than one currency, add a `Currency` column and conversion rates table; convert to base currency in `tblTransactions`.
-* **Hobbs vs FlightHours:** prefer storing `FlightHours` explicitly per transaction to avoid ambiguity; if using Hobbs meter deltas, implement a small helper table `tblHobbs` with ordered meter events and compute deltas with `INDEX`/`LAG` style logic or a pivot on sorted events.
-* **VAT rounding differences:** calculate VAT at row level and sum; if jurisdiction requires VAT on invoice-level rounding, add a column `VAT_RoundingRule` and store reported VAT to detect mismatches.
+(categories classified as `Type = "Variable"`)
 
----
+**C2:**
 
-## What I will produce if you want me to implement it next
-
-If you want, I can now:
-
-1. Produce an exact, sheet-by-sheet Excel file (rebuild) implementing the design above and populate it with the data from the uploaded workbook (I already see the file path you uploaded).
-2. Or produce the workbook skeleton (empty tables, named formulas, documentation sheet) that you can paste data into safely.
-
-Say which one you prefer and I’ll proceed with the rebuild plan immediately (I already have everything required from the uploaded workbook to map fields).
+```excel
+=SUMIFS(
+  tblTransactions[AmountHT];
+  tblTransactions[Year]; $A2;
+  tblTransactions[Type]; "Variable"
+)
+```
 
 ---
 
-Would you like the **full rebuilt workbook** (I’ll migrate data, build the amortization schedule, produce Dashboard + Audit) or start with a **skeleton template** and we’ll migrate stepwise?
+### Column D — `FixedRecurring`
+
+**D2:**
+
+```excel
+=SUMIFS(
+  tblTransactions[AmountHT];
+  tblTransactions[Year]; $A2;
+  tblTransactions[Type]; "FixedRecurring"
+)
+```
+
+---
+
+### Column E — `FixedNonRec`
+
+**E2:**
+
+```excel
+=SUMIFS(
+  tblTransactions[AmountHT];
+  tblTransactions[Year]; $A2;
+  tblTransactions[Type]; "FixedNonRecurring"
+)
+```
+
+---
+
+### Column F — `CapitalAmort`
+
+(coming from `tblAmortization`, **not** from transactions)
+
+Assume `tblAmortization` has:
+
+* `StartYear`
+* `EndYear`
+* `Amount`
+* `YearsToAmortize`
+
+**F2:**
+
+```excel
+=SUMPRODUCT(
+  (tblAmortization[StartYear] <= $A2) *
+  (tblAmortization[EndYear] >= $A2) *
+  (tblAmortization[Amount] / tblAmortization[YearsToAmortize])
+)
+```
+
+✔ Works perfectly on Excel for Mac
+✔ No helper columns needed
+✔ Deterministic & auditable
+
+---
+
+### Column G — `TotalCostHT`
+
+**G2:**
+
+```excel
+=LET(
+  var; C2;
+  fix; D2;
+  nonrec; E2;
+  cap; F2;
+  var + fix + nonrec + cap
+)
+```
+
+Readable, debuggable, self-documenting.
+
+---
+
+### Column H — `CostPerHour`
+
+**H2:**
+
+```excel
+=IF(
+  B2>0;
+  G2 / B2;
+  NA()
+)
+```
+
+Using `NA()` avoids misleading zeroes in charts.
+
+---
+
+## 4. Optional but HIGHLY recommended: named formulas
+
+To make this even clearer, define these **once** in Name Manager:
+
+### `GetYearAmountByType`
+
+```excel
+=LAMBDA(y; t;
+  SUMIFS(
+    tblTransactions[AmountHT];
+    tblTransactions[Year]; y;
+    tblTransactions[Type]; t
+  )
+)
+```
+
+Then Column C becomes:
+
+```excel
+=GetYearAmountByType($A2; "Variable")
+```
+
+Column D:
+
+```excel
+=GetYearAmountByType($A2; "FixedRecurring")
+```
+
+This is **professional-grade Excel** and still 100% Mac-compatible.
+
+---
+
+## 5. Why this is strictly better than `OLD-Stats`
+
+| Old `OLD-Stats`              | New `Calc_Yearly`           |
+| ---------------------------- | --------------------------- |
+| Years in columns             | Years in rows               |
+| Manual extension             | Fully automatic             |
+| Layout-dependent             | Layout-independent          |
+| Hard to audit                | Transparent formulas        |
+| KPI rows tied to row numbers | KPIs refer to named columns |
+| Copy-paste errors likely     | Zero copy-paste             |
+
+Adding **2026** now means:
+
+> just add transactions with Year = 2026
+> → everything updates automatically
+
+No column copying. No broken KPIs.
+
+---
+
+## 6. Next logical steps (your choice)
+
+We can now:
+
+1. 🔧 Build the **exact Excel file** with this sheet populated from your real data
+2. 📊 Add the **Dashboard** (cost/hour trends, fuel vs hours, fixed vs variable)
+3. 🧪 Add an **Audit sheet** that proves parity with `OLD-Stats`
+4. 🧠 Introduce **provisioning logic** (monthly reserve targets, smoothing)
+
+Tell me what you want next — and good job catching the locale issue, that’s exactly the kind of thing that bites later if ignored.

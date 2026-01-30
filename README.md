@@ -9,12 +9,12 @@ Since 2022, when AI-powered chatbots started being very popular, I experimented 
 
 _In project Machu Picchu, we aim to use 21st century tools to change the way humanitarian aid is practiced._
 
-This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy to laypersons (non-programmers), instead of coding on JavaScript, Python or a programming language, in this example we develop acomplete Excel application using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
+This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy for laypersons (non-programmers) to reproduce, instead of coding on JavaScript, Python or a programming language, in this example we develop a complete Excel application using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
 
 # Overview of our purpose
 
 ## AI-powered Workflow in a Nutshell
-
+![overview](./images/000_overview.png)
 - Step A: 1️⃣ describe what you want 2️⃣ have the bot criticize and suggest improvements 3️⃣ have it generate a detailed design. Reiterate once, to trap eventual hallucinations.
 - Step B: start a new session, 1️⃣ paste the design, 2️⃣ have the AI chatbot generate the code, 3️⃣ have it criticize its code. Reiterate once, to trap eventual hallucinations.
 - Step C: 1️⃣ run the AI-generated app, 2️⃣ handcraft add the desired features that are too business-specific to spend time explain to the chatbot, 3️⃣ start a new session , submit my code, ask for refactoring
@@ -25,6 +25,12 @@ Hints:
 - Instead of describing textually what you want, you make a quick prototype and give it to the chatbot to explore and comment.
 - Often, irrelevant criticisms of the chatbot about your prototype announces future misunderstandings when asking it to generate code. Clarify these criticisms and start a new session.
 - Start new session as often as practical, as soon as the chatbot has achieved a significant step. This will clean the context, focus the discussion and avoid hallucinations.
+
+Illustration:
+- Step A.1 is illustrated in "No-Think" mode by prompt 1 [(prompt_01.md)](./prompt_01.md), the answer of ChatGPT is [(answer_01.md)](./answer_01.md)
+- Step A.1 is illustrated in "Think" mode by prompt 1b [(prompt_01b.md)](./prompt_01b.md), the answer of ChatGPT is [(answer_01b.md)](./answer_01b.md)
+- Step A.2 is a question for example by prompt 2 [(prompt_02.md)](./prompt_02.md), the clarification of ChatGPT is [(answer_02.md)](./answer_02.md)
+- Step A.3 is illustrated in "Think" mode by prompt 3 [(prompt_03.md)](./prompt_03.md), the clarification of ChatGPT is [(answer_03.md)](./answer_03.md)
 
 ## Spoiler Results
 

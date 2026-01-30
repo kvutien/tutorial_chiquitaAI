@@ -16,3 +16,7 @@
 -	Sheet Audits is a good contribution that ChatGPT "think mode" brought in the last answer.
 
 Acknowledge that you'll take these clarifications into account. Ask me to confirm assumptions if you still have that I have not clarified. Then in the coming prompts I'll give you details on how to calculate costs in the calculation formulas.
+
+
+- see ChatGPT answer here [(./answer_03.md)](./answer_03.md)
+- return to the main article here [(README.md)](./README.md)

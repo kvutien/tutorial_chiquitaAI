@@ -1,5 +1,7 @@
 # Summary of progress and clarify eventual assumptions
 
+*return to the main article here [(README.md)](./README.md)*
+
 Perfect — thank you, this is *exactly* the level of clarification that turns this into a clean, professional refactor. 👍
 I’ve carefully integrated **all** your points and constraints (EU locale, Excel 365 for Mac, no Data Model, SUMIFS-centric design, no amortization yet, multi-pilot balances, VAT reality in Europe, loop avoidance).
 

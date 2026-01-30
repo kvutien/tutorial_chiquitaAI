@@ -1,4 +1,6 @@
-# Introduction of the session
+# (No-Think answer) Introduction of the session
+
+*return to the main article here [(README.md)](./README.md)*
 
 Got it 👍 I’ll keep that mindset for the whole session: **Excel 365 for Mac, no Power Pivot / Data Model, best-practice worksheet engineering, and explanations that assume solid Excel basics but not advanced design patterns.**
 
