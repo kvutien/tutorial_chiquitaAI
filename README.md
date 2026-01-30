@@ -100,6 +100,7 @@ I upload this Excel example to Chat GPT (no Thinking, no Deep research) and aske
 The answer of ChatGPT follows. This answer is also in the github as [(`answer_01.md`)](./answer_01.md)
 
 ## ChatGPT Describes Data and Actions ("No Thinking" mode)
+### My comments on ChatGPT no-thinking answer 
 The overall structure is correctly perceived.
 - Overall Purpose of the Workbook
 - Sheet: OLD-Data (Raw Data Layer)
@@ -112,24 +113,22 @@ The overall purpose and the layers of sheets are identified. The major weaknesse
 
 Sheet "Data" is well identified as an "almost-Excel-table". Categories are wrongly qualified as "free-text": the data validation is not identified, certainly because we are in no-thinking mode. We have a target functional requirements for re-factoring.
 
-Sheet "Stats" is well qualified as "a manual pivot table implemented with formulas", extremely layout-dependent, logic and presentation are tightly coupled. Old-style Excel calculations. Improvements are proposed to reduce the weakness of the programmation style.
+Sheet "Stats" is well qualified as "a manual pivot table implemented with formulas", "extremely layout-dependent, logic and presentation are tightly coupled". "Old-style Excel calculations". Improvements are proposed to reduce the weakness of the programmation style.
 
 Sheet "KPI"is weel perceived as "summarizing KPI" stats across years and very fragile dependent on years count.
-Overall, the "no-thinking" mode notes the biggest flaws:  there is no abstraction layer and the same logic is duplicated, making the sheet very fragile to maintain. However, the Name Manager has not been examined, nor the data validation.
+Overall, the "no-thinking" mode notes the biggest flaws:  there is no abstraction layer and the same logic is duplicated among similar cells of an matrix, making the sheet very fragile to maintain. However, the Name Manager has not been examined, nor the data validation.
 
-Next, we activate the "Thinking" mode and ask the same prompt. The answer of ChatGPT is in the github as `answer_02.md`
+Next, we activate the "Thinking" mode and ask the same prompt. The answer of ChatGPT is in the github as as [(`answer_01b.md`)](./answer_01b.md)
 
 ##	ChatGPT Describes Data and Actions ("Thinking" mode)
+### My comments on ChatGPT thinking answer 
 
 The "Thinking" answer is more detailed. This may lure you to accept ChatGPT proposal to start implementing. However, keep in mind that ChatGPT is not a magician who knows exactly what you intend to do. Implementing at this stage of understanding will certainly miss the spot.
--	To explain precisely your intentions, either you write a very detailed prompt, or (like here) you illustrate with a quick Excel prototype that you ask ChatGPT to analyze and criticize.
+-	To explain precisely your intentions, either you write a very detailed prompt, or you illustrate (like here) with a quick Excel prototype that you ask ChatGPT to analyze and criticize.
 -	If you illustrate by a prototype, it gives ChatGPT a rough idea of what you want. If you ask it to code immediately after this early analysis of the prototype, ChatGPT will fill the blanks with its own training memories. If you disagree with the output, you can correct it but unless you say explicitly that its assumptions are wrong, ChatGPT will keep polluting the context with them.
--	At this stage, instead of coding, I recommend to get straight what ChatGPT has assumed wrongly. From these corrections, ask it which assumptions that my latest corrections made it modify.
+-	At this stage, instead of coding, I recommend to clear up with what ChatGPT has assumed wrongly. From these corrections, ask it which assumptions that your latest corrections made it modify.
 
-My corrections are in the prompt stored in prompt_03.md>.
-
-The answer of ChatGPT is stored in answer_03.md
-
+My corrections are in the prompt stored in prompt 3 [(prompt_03.md)](./prompt_03.md). The clarification of ChatGPT is answer 3 [(answer_03.md)](./answer_03.md)
 
 
 # a
