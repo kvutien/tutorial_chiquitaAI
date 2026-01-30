@@ -28,7 +28,7 @@ Hints:
 
 Illustration:
 - Step A.1 is illustrated in "No-Think" mode by prompt 1 [(prompt_01.md)](./prompt_01.md), the answer of ChatGPT is [(answer_01.md)](./answer_01.md)
-- Step A.1 is illustrated in "Think" mode by prompt 1b [(prompt_01b.md)](./prompt_01b.md), the answer of ChatGPT is [(answer_01b.md)](./answer_01b.md)
+- Step A.1 is illustrated in "Think" mode by the same prompt 1 [(prompt_01.md)](./prompt_01.md), the answer of ChatGPT is [(answer_01b.md)](./answer_01b.md)
 - Step A.2 is a question for example by prompt 2 [(prompt_02.md)](./prompt_02.md), the clarification of ChatGPT is [(answer_02.md)](./answer_02.md)
 - Step A.3 is illustrated in "Think" mode by prompt 3 [(prompt_03.md)](./prompt_03.md), the clarification of ChatGPT is [(answer_03.md)](./answer_03.md)
 
