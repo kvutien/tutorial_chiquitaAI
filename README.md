@@ -123,12 +123,51 @@ Next, we activate the "Thinking" mode and ask the same prompt. The answer of Cha
 ##	ChatGPT Describes Data and Actions ("Thinking" mode)
 ### My comments on ChatGPT thinking answer 
 
-The "Thinking" answer is more detailed. This may lure you to accept ChatGPT proposal to start implementing. However, keep in mind that ChatGPT is not a magician who knows exactly what you intend to do. Implementing at this stage of understanding will certainly miss the spot.
+The "Thinking" answer is more detailed. This may lure you to accept ChatGPT proposal to start implementing. However, keep in mind that ChatGPT is not a magician who knows exactly what you intend to do. Implementing at this stage of understanding will certainly miss the spot. So I ask for clarification on the proposed solution.
+
+##	ChatGPT clarifies how it'd do statistics without pivot tables ("Thinking" mode)
+This asking for clarification is also in the github as  [(`prompt_02.md`)](./prompt_02.md), the answer of ChatGPT is [(answer_02.md)](./answer_02.md):
+
+    Hum. I've asked you to remember during the whole session that you are using EU locale. Keep in mind also that you are using Excel for Mac with all its limitation (see initial prompt). 
+    Now show an example of your sheet Calc_Yearly once filled.
+
+The answer of ChatGPT follows. This answer is also in the github as [(`answer_02.md`)](./answer_02.md)
+
+### My comments on ChatGPT thinking clarification 
+The proposition of ChatGPT is to organize the years by rows and the calculated values as columns. The rows will grow as more years are added while the calculated values will very rarely have new members. Then we can write one formula per value and let Excel still down the formulas.
+
+Such formulas are much more fexible than ppredefined pivot components. Furtherore, the calculation logic is not hidden in pivots.
+
+##	ChatGPT summarizes what it understood and what it is still assuming
+Again, ChatGPT concludes its aswer by proposing to code. But it is not yet a good idea.
 -	To explain precisely your intentions, either you write a very detailed prompt, or you illustrate (like here) with a quick Excel prototype that you ask ChatGPT to analyze and criticize.
 -	If you illustrate by a prototype, it gives ChatGPT a rough idea of what you want. If you ask it to code immediately after this early analysis of the prototype, ChatGPT will fill the blanks with its own training memories. If you disagree with the output, you can correct it but unless you say explicitly that its assumptions are wrong, ChatGPT will keep polluting the context with them.
 -	At this stage, instead of coding, I recommend to clear up with what ChatGPT has assumed wrongly. From these corrections, ask it which assumptions that your latest corrections made it modify.
 
-My corrections are in the prompt stored in prompt 3 [(prompt_03.md)](./prompt_03.md). The clarification of ChatGPT is answer 3 [(answer_03.md)](./answer_03.md)
+My corrections are in the prompt stored in prompt 3 [(prompt_03.md)](./prompt_03.md). The clarification of ChatGPT is answer 3 [(answer_03.md)](./answer_03.md):
+
+-	*The purpose of re-factored worksheet will be used to calculate the balance of each pilot, based on the general cost of maintaining the plane, the costs of their usage of the plane and their contributions.*
+-	*The re-factored worksheet will be composed of the data entry sheets and read-only sheets.*
+-	*Data entry sheets are composed of Expenses, AVGAS (fueling), Flights (pilot, time, location, Hobbs, etc.) and Contribs. All data entry sheets have a column FundSource to trace who is paying.*
+-	*Read-only sheets are composed of Params, Stats, Overview (Dashboard & KPI) and Audits. A last sheet Misc is for temporary calculations and a README sheet is the user guide.*
+-	*Sheet Flights has data entry columns and helper columns to calculate costs related to the trip of the row. These helper columns will be read by sheet Stats to calculate the balances.*
+-	*Sheet Expenses (Data) needs no Subcategories. But it will need a helper column Type (Fixed, Variable, Exceptional).*
+-	*Sheet Expenses (Data) will never contain flight and Hobbs value, nor AVGAS. This information will be in a distinct sheet Flights, respectively AVGAS.*
+-	*Sheet AVGAS has data entry columns and a few helper columns that will be used by Stats to calculate fuel data.*
+-	Sheet Expenses (Data): In Europe there are a lot of VAT rates depending on the year and on the country. Defining TVARate by XLOOKUP is overly complicated.*
+-	*Sheet Params (Lookups): There are some parameters that can be used with XLOOKUP like the dry hourly cost for pilots. Some others such as fuel price, consumption per hour, fuel per hour, fuel cost per hour, will be the average since the beginning until the moment of the flight.*
+-	*Sheet Params (Lookups): Ignore. There is currently no amortization yet. Only in future versions.*
+-	Sheet Stats (Calc_Yearly): Very interesting use of SUMIFS which improves on pivot tables. We keep this solution from now on. We will call this sheet Stats.*
+-	*Sheet Stats (Calc_Yearly): Keep in mind that the SUMIFS giving average hourly consumption, fuel price, yearly variable costs, fixed costs fuel costs are reused to calculate the cost of each trip in Flights. We must avoid calculation loops.*
+-	*Sheet Stats (Calc_Yearly): Let's ignore amortization for the time being. It will be introduced later after a few months using this Excel worksheet.*
+-	*Sheets KPIs & Dashboard: Merge these 2 into a sheet named Overview. It is the read-only surface while Stats is the calculation engine.*
+-	*Sheet Audits is a good contribution that ChatGPT "think mode" brought in the last answer.*
+
+*Acknowledge that you'll take these clarifications into account. Ask me to confirm assumptions if you still have that I have not clarified. Then in the coming prompts I'll give you details on how to calculate costs in the calculation formulas.*
+
+As you may see, I add now precisely clarifications to what ChatGPT has in its memory. This kind of prompt is very close to fine-tuning a model, but limited to a session.
+
+The answer of ChatGPT follows. This answer is also in the github as [(`answer_03.md`)](./answer_03.md)
 
 
 # a
