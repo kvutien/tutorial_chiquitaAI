@@ -75,6 +75,18 @@ I want to realize a cost analysis tracking tool for a private aircraft. This is 
 
 3.	Re-engineer both the expense tracking, the flight billing and the refueling operations to make statistics and a KPI dashboard. This stage will only be sketched.
 
+##	What do you need to do the same exercise
+-	Excel, preferably Excel 365 but old Excel 97 should work also.
+-	A browser.
+
+Open ChatGPT and Google Gemini in 2 distinct browser tabs. ChatGPT will be your solver (it reasons better) and Gemini with be your instructor (its knowledge is huge and can teach you the Excel tricks that ChatGPT uses).
+
+Copy one by one the prompts in the github and paste in the ChatGPT tab. Read carefully the answer. If you need clarifications, ask Gemini; thus you'll not pollute the context of ChatGPT.
+
+That's all. Enjoy. Let's go.
+
+##	Description of the hacked proto
+
 To start, I made a sample Excel worksheet to show what I want to do. Most of the formulas are hard coded cell by cell, which is a typical hack, made to describe and explore a solution. 
 
 This tool has 3 Excel tabs:
