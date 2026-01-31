@@ -138,7 +138,7 @@ The proposition of ChatGPT is to organize the years by rows and the calculated v
 
 Such formulas are much more fexible than ppredefined pivot components. Furtherore, the calculation logic is not hidden in pivots.
 
-##	ChatGPT summarizes what it understood and what it is still assuming
+##	ChatGPT summarizes what it understood and what assumption we still need to confirm
 Again, ChatGPT concludes its aswer by proposing to code. But it is not yet a good idea.
 -	To explain precisely your intentions, either you write a very detailed prompt, or you illustrate (like here) with a quick Excel prototype that you ask ChatGPT to analyze and criticize.
 -	If you illustrate by a prototype, it gives ChatGPT a rough idea of what you want. If you ask it to code immediately after this early analysis of the prototype, ChatGPT will fill the blanks with its own training memories. If you disagree with the output, you can correct it but unless you say explicitly that its assumptions are wrong, ChatGPT will keep polluting the context with them.
@@ -167,7 +167,8 @@ My corrections are in the prompt stored in prompt 3 [(prompt_03.md)](./prompt_03
 
 As you may see, I add now precisely clarifications to what ChatGPT has in its memory. This kind of prompt is very close to fine-tuning a model, but limited to a session.
 
-The answer of ChatGPT follows. This answer is also in the github as [(`answer_03.md`)](./answer_03.md)
+The answer of ChatGPT is in the github as [(`answer_03.md`)](./answer_03.md)
 
+### My comments on ChatGPT (thinking) summary of progress 
 
 # a
