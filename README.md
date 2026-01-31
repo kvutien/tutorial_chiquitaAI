@@ -65,7 +65,7 @@ If you don't have time to look at details, you can stop reading here. If you con
 # Full scale example: Excel Tool for Expenses Tracking
 - [Hop to Session 1: Generate Detailed Design using ChatGPT](#session-1-generate-detailed-design)
 
-In this example of January 2026, I use ChatGPT 5.2 in Thinking mode. The 2 other chatbots that have this reasoning mode are : Google Gemini 3 and Claude 4.5.
+In this example of January 2026, I use ChatGPT 5.2 in Thinking mode. The 2 other chatbots that have this reasoning mode are : Google Gemini 3 and Claude 4.5, but their reasoning is more shallow.
 
 I want to realize a cost analysis tracking tool for a private aircraft. This is not trivial example project and is composed of 3 sub-projects :
 
