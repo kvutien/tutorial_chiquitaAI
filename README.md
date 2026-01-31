@@ -81,9 +81,11 @@ I want to realize a cost analysis tracking tool for a private aircraft. This is 
 
 Open ChatGPT and Google Gemini in 2 distinct browser tabs. ChatGPT will be your solver (it reasons better) and Gemini with be your instructor (its knowledge is huge and can teach you the Excel tricks that ChatGPT uses).
 
-Copy one by one the prompts in the github and paste in the ChatGPT tab. Read carefully the answer. If you need clarifications, ask Gemini; thus you'll not pollute the context of ChatGPT.
+- download the sample Excel hacked prototype from https://github.com/kvutien/tutorial_chiquitaAI/blob/main/excel_example/OLD_data_hack_2013-2025.xlsx
+- in the ChatGPT initial welcome window, upload this Excel that ChatGPT will have to analyse
+- copy the text of the prompt in [(`prompt_01.md`)](./prompt_01.md) into the github and paste in the ChatGPT tab. Type Enter and read carefully the answer. If you need clarifications, ask Gemini; thus you'll not pollute the context of ChatGPT.
 
-That's all. Enjoy. Let's go.
+That's all. Enjoy. Let's go, but first here is an explanation of the hack that we'll ask ChatGPT to analyze.
 
 ##	Description of the hacked proto
 
