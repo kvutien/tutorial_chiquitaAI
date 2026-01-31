@@ -92,7 +92,7 @@ This tool has 3 Excel tabs:
 ![](./images/003_proto_screenshot.jpg)
 
 # Session 1: Generate Detailed Design
-- [Go to ChatGPT summary of Session 1](#chatgpt-summarizes-what-it-understood-and-what-assumption-we-still-need-to-confirm)
+- [Go to ChatGPT summary of Session 1](#chatgpt-summarizes-what-it-understood-and-assumptions-to-confirm)
 
 ## Prompt: Describe Data and Actions
 
@@ -146,7 +146,7 @@ The proposition of ChatGPT is to organize the years by rows and the calculated v
 
 Such formulas are much more fexible than ppredefined pivot components. Furtherore, the calculation logic is not hidden in pivots.
 
-##	ChatGPT summarizes what it understood and what assumption we still need to confirm
+##	ChatGPT summarizes what it understood and assumptions to confirm
 
 Again, ChatGPT concludes its aswer by proposing to code. But it is not yet a good idea.
 -	To explain precisely your intentions, either you write a very detailed prompt, or you illustrate (like here) with a quick Excel prototype that you ask ChatGPT to analyze and criticize.
