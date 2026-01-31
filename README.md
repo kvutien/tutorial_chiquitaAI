@@ -11,12 +11,10 @@ _In project Machu Picchu, we aim to use 21st century tools to change the way hum
 
 This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy for laypersons (non-programmers) to reproduce, instead of coding on JavaScript, Python or a programming language, in this example we develop a complete Excel application using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
 
-- [Start with section Full scale example](#full-scale-example-excel-tool-for-expenses-tracking)
-- [Hop to Session 1: Generate Detailed Design using ChatGPT](#session-1-generate-detailed-design)
-
-
 
 # Overview of our purpose
+- [Start with section Full scale example](#full-scale-example-excel-tool-for-expenses-tracking)
+- [Hop to Session 1: Generate Detailed Design using ChatGPT](#session-1-generate-detailed-design)
 
 ## AI-powered Workflow in a Nutshell
 ![overview](./images/000_overview.png)
@@ -94,6 +92,7 @@ This tool has 3 Excel tabs:
 ![](./images/003_proto_screenshot.jpg)
 
 # Session 1: Generate Detailed Design
+- [Go to ChatGPT summary of Session 1](#chatgpt-summarizes-what-it-understood-and-what-assumption-we-still-need-to-confirm)
 
 ## Prompt: Describe Data and Actions
 
@@ -148,6 +147,7 @@ The proposition of ChatGPT is to organize the years by rows and the calculated v
 Such formulas are much more fexible than ppredefined pivot components. Furtherore, the calculation logic is not hidden in pivots.
 
 ##	ChatGPT summarizes what it understood and what assumption we still need to confirm
+
 Again, ChatGPT concludes its aswer by proposing to code. But it is not yet a good idea.
 -	To explain precisely your intentions, either you write a very detailed prompt, or you illustrate (like here) with a quick Excel prototype that you ask ChatGPT to analyze and criticize.
 -	If you illustrate by a prototype, it gives ChatGPT a rough idea of what you want. If you ask it to code immediately after this early analysis of the prototype, ChatGPT will fill the blanks with its own training memories. If you disagree with the output, you can correct it but unless you say explicitly that its assumptions are wrong, ChatGPT will keep polluting the context with them.
