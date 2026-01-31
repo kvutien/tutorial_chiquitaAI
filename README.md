@@ -11,6 +11,11 @@ _In project Machu Picchu, we aim to use 21st century tools to change the way hum
 
 This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy for laypersons (non-programmers) to reproduce, instead of coding on JavaScript, Python or a programming language, in this example we develop a complete Excel application using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
 
+- [Start with section Full scale example](#full-scale-example-excel-tool-for-expenses-tracking)
+- [Hop to Session 1: Generate Detailed Design using ChatGPT](#session-1-generate-detailed-design)
+
+
+
 # Overview of our purpose
 
 ## AI-powered Workflow in a Nutshell
