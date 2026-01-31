@@ -92,7 +92,6 @@ This tool has 3 Excel tabs:
 ![](./images/003_proto_screenshot.jpg)
 
 # Session 1: Generate Detailed Design
-- [Go to ChatGPT Session 1 summary](#chatgpt-summarizes-what-it-understood-and-assumptions-to-confirm)
 
 ## Prompt: Describe Data and Actions
 
