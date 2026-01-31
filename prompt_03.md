@@ -1,3 +1,5 @@
+> --------------- prompt starts here
+> 
 -	*The purpose of re-factored worksheet will be used to calculate the balance of each pilot, based on the general cost of maintaining the plane, the costs of their usage of the plane and their contributions.*
 -	*The re-factored worksheet will be composed of the data entry sheets and read-only sheets.*
 -	*Data entry sheets are composed of Expenses, AVGAS (fueling), Flights (pilot, time, location, Hobbs, etc.) and Contribs. All data entry sheets have a column FundSource to trace who is paying.*
@@ -17,6 +19,8 @@
 
 *Acknowledge that you'll take these clarifications into account. Ask me to confirm assumptions if you still have that I have not clarified. Then in the coming prompts I'll give you details on how to calculate costs in the calculation formulas.*
 
+> --------------- prompt stops here
+> 
 
 - see ChatGPT answer here [(./answer_03.md)](./answer_03.md)
 - return to the main article here [(README.md)](./README.md)

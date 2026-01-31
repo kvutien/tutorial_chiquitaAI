@@ -65,6 +65,7 @@ This article carries several types of content:
 If you don't have time to look at details, you can stop reading here. If you continue, be prepared to reproduce by yourself the results with a free ChatGPT account and Excel 365.
 
 # Full scale example: Excel Tool for Expenses Tracking
+- [Hop to Session 1: Generate Detailed Design using ChatGPT](#session-1-generate-detailed-design)
 
 In this example of January 2026, I use ChatGPT 5.2 in Thinking mode. The 2 other chatbots that have this reasoning mode are : Google Gemini 3 and Claude 4.5.
 
@@ -162,10 +163,10 @@ My corrections are in the prompt stored in prompt 3 [(prompt_03.md)](./prompt_03
 -	*Sheet Expenses (Data) needs no Subcategories. But it will need a helper column Type (Fixed, Variable, Exceptional).*
 -	*Sheet Expenses (Data) will never contain flight and Hobbs value, nor AVGAS. This information will be in a distinct sheet Flights, respectively AVGAS.*
 -	*Sheet AVGAS has data entry columns and a few helper columns that will be used by Stats to calculate fuel data.*
--	Sheet Expenses (Data): In Europe there are a lot of VAT rates depending on the year and on the country. Defining TVARate by XLOOKUP is overly complicated.*
+-	*Sheet Expenses (Data): In Europe there are a lot of VAT rates depending on the year and on the country. Defining TVARate by XLOOKUP is overly complicated.*
 -	*Sheet Params (Lookups): There are some parameters that can be used with XLOOKUP like the dry hourly cost for pilots. Some others such as fuel price, consumption per hour, fuel per hour, fuel cost per hour, will be the average since the beginning until the moment of the flight.*
 -	*Sheet Params (Lookups): Ignore. There is currently no amortization yet. Only in future versions.*
--	Sheet Stats (Calc_Yearly): Very interesting use of SUMIFS which improves on pivot tables. We keep this solution from now on. We will call this sheet Stats.*
+-	*Sheet Stats (Calc_Yearly): Very interesting use of SUMIFS which improves on pivot tables. We keep this solution from now on. We will call this sheet Stats.*
 -	*Sheet Stats (Calc_Yearly): Keep in mind that the SUMIFS giving average hourly consumption, fuel price, yearly variable costs, fixed costs fuel costs are reused to calculate the cost of each trip in Flights. We must avoid calculation loops.*
 -	*Sheet Stats (Calc_Yearly): Let's ignore amortization for the time being. It will be introduced later after a few months using this Excel worksheet.*
 -	*Sheets KPIs & Dashboard: Merge these 2 into a sheet named Overview. It is the read-only surface while Stats is the calculation engine.*
