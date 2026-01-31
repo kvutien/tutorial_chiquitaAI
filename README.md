@@ -118,10 +118,11 @@ Sheet "Stats" is well qualified as "a manual pivot table implemented with formul
 Sheet "KPI"is weel perceived as "summarizing KPI" stats across years and very fragile dependent on years count.
 Overall, the "no-thinking" mode notes the biggest flaws:  there is no abstraction layer and the same logic is duplicated among similar cells of an matrix, making the sheet very fragile to maintain. However, the Name Manager has not been examined, nor the data validation.
 
-Next, we activate the "Thinking" mode and ask the same prompt. The answer of ChatGPT is in the github as as [(`answer_01b.md`)](./answer_01b.md)
+Next, we activate the "Thinking" mode and ask the same prompt. 
 
 ##	ChatGPT Describes Data and Actions ("Thinking" mode)
 ### My comments on ChatGPT thinking answer 
+The answer of ChatGPT is in the github as [(`answer_01b.md`)](./answer_01b.md)
 
 The "Thinking" answer is more detailed. This may lure you to accept ChatGPT proposal to start implementing. However, keep in mind that ChatGPT is not a magician who knows exactly what you intend to do. Implementing at this stage of understanding will certainly miss the spot. So I ask for clarification on the proposed solution.
 
@@ -131,9 +132,11 @@ This asking for clarification is also in the github as  [(`prompt_02.md`)](./pro
     Hum. I've asked you to remember during the whole session that you are using EU locale. Keep in mind also that you are using Excel for Mac with all its limitation (see initial prompt). 
     Now show an example of your sheet Calc_Yearly once filled.
 
-The answer of ChatGPT follows. This answer is also in the github as [(`answer_02.md`)](./answer_02.md)
+The answer of ChatGPT follows. 
 
 ### My comments on ChatGPT thinking clarification 
+This answer is also in the github as [(`answer_02.md`)](./answer_02.md)
+
 The proposition of ChatGPT is to organize the years by rows and the calculated values as columns. The rows will grow as more years are added while the calculated values will very rarely have new members. Then we can write one formula per value and let Excel still down the formulas.
 
 Such formulas are much more fexible than ppredefined pivot components. Furtherore, the calculation logic is not hidden in pivots.
