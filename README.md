@@ -9,8 +9,7 @@ Since 2022, when AI-powered chatbots started being very popular, I experimented 
 
 _In project Machu Picchu, we aim to use 21st century tools to change the way humanitarian aid is practiced._
 
-This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy for laypersons (non-programmers) to reproduce, instead of coding on JavaScript, Python or a programming language, in this example we develop a complete Excel application using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
-
+This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy to laypersons (non-programmers) to followimitate,  in this example we develop a complete Excel application called ChiquitaAI This tutorial project is. using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
 
 # Overview of our purpose
 - [Start with section Full scale example](#full-scale-example-excel-tool-for-expenses-tracking)
