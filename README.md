@@ -45,7 +45,7 @@ How this article illustrates the workflow:
 
 ## Spoiler Results
 
-Spoiler results list what we have learned from this tutorial if you don't have time to go into details:
+This section lists what we have learned from this tutorial if you don't have time to go into details:
 
 - ChatGPT 5.2 hallucinates the least when the question is difficult and not widely known in public documents. For example, when on Excel for Mac a I use a LAMBDA function inside a MAP function to populate 2D array cells created with MAKEARRAY.
   -  Don't be scared by these names, I barely know them too before I started this project, but I learned how to use them with the chatbots.
