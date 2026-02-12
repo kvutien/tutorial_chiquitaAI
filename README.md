@@ -12,9 +12,16 @@ _In project Machu Picchu, we aim to use 21st century tools to change the way hum
 This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy to laypersons (non-programmers) to follow and imitate,  in this example we develop a complete Excel application called ChiquitaAI This tutorial project is. using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
 
 # Overview of our purpose
-Click on the link below to jump directly at the relevant chapters:
+This article starts with some general considerations, but if you are more interested in hands-on talk, click on the link below to jump directly at the relevant chapters:
 - [1. Start with section *Full scale example*](#full-scale-example-excel-tool-for-expenses-tracking)
 - [2. Straight to Session 1: Generate Detailed Design using ChatGPT](#session-1-generate-detailed-design)
+
+## What this article is made of
+
+This article carries several types of content:
+-	The textual explanation is hosted in a Medium article, a LinkedIn article, and a Github README.md file [(https://github.com/kvutien/tutorial_chiquitaAI/)]. It describes our purposes, the chatbot prompts and parts of the chatbot reply to introduce the next prompt. It contains also our comments on the bot replies.
+-	The full chatbot answers and the generated codes are in the above github repository.
+-	The intermediate worksheets are also in the same github repository.
 
 ## Reading Guide
 There are 3 ways to read this article:
@@ -48,8 +55,8 @@ How this article illustrates the workflow:
 This section lists what we have learned from this tutorial if you don't have time to go into details:
 
 - ChatGPT 5.2 hallucinates the least when the question is difficult and not widely known in public documents. For example, when on Excel for Mac a I use a LAMBDA function inside a MAP function to populate 2D array cells created with MAKEARRAY.
-  -  Don't be scared by these names, I barely know them too before I started this project, but I learned how to use them with the chatbots.
-- Gemini is the second best chatbot. Most of the time it gives pertinent advice. But in some implementation imperfections of Excel on Mac, it keeps reasoning around without reaching a solution. I use Gemini as a cross-check of ChatGPT answer: I give it the code of ChatGPT and ask it to comment and improve.
+  -  Don't be scared by these Excel functions, I barely know them too before I started this project, but I learned how to use them with the chatbots.
+- Google Gemini is the second best chatbot. Most of the time it gives pertinent advice. But in some implementation imperfections of Excel on Mac, it keeps reasoning around without reaching a solution. I use Gemini as a cross-check of ChatGPT answer: I give it the code of ChatGPT and ask it to comment and improve.
 - Claude Sonnet 4.5 is very popular among programmers but its free tier is not usable for our purposes. It is complicated to set up Claude to upload Excel files, for it to analyze and criticize. This uploading is critical, because we ask the chatbot to comment an implementation.
 - Mistral, DeepSeek 3, Qwen 2 (in their free tiers) are truly not up to the task.
 
@@ -60,13 +67,6 @@ Keep in mind that a modern chatbot doesn't simply call on a LLM (Large Language 
 _The situation of chatbots using LLMs is similar to engineering a car by starting with a powerful engine and then add supporting accessories to make it a comfortable limousine, or SUV, or a van. In our experience, Claude may be good for coding apps, but less effective to make a real-life Excel worksheet._  
 
     I haven't tested Claude for Excel because it is a feature of a paid service.
-
-## What this article is made of
-
-This article carries several types of content:
--	The textual explanation is hosted in a Medium article, a LinkedIn article, and a Github README.md file [(https://github.com/kvutien/tutorial_chiquitaAI/)]. It describes our purposes, the chatbot prompts and parts of the chatbot reply to introduce the next prompt. It contains also our comments on the bot replies.
--	The full chatbot answers and the generated codes are in the above github repository.
--	The intermediate worksheets are also in the same github repository.
 
 If you don't have time to look at details, you can stop reading here. If you continue, be prepared to reproduce by yourself the results with a free ChatGPT account and Excel 365.
 
