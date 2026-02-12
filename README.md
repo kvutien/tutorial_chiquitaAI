@@ -9,11 +9,18 @@ Since 2022, when AI-powered chatbots started being very popular, I experimented 
 
 _In project Machu Picchu, we aim to use 21st century tools to change the way humanitarian aid is practiced._
 
-This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy to laypersons (non-programmers) to followimitate,  in this example we develop a complete Excel application called ChiquitaAI This tutorial project is. using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
+This document is a step by step illustration of the chatbot-powered coding workflow. To make it easy to laypersons (non-programmers) to follow and imitate,  in this example we develop a complete Excel application called ChiquitaAI This tutorial project is. using Excel best practices with the assistance of the free tier of ChatGPT, in Thinking mode when required.
 
 # Overview of our purpose
-- [Start with section Full scale example](#full-scale-example-excel-tool-for-expenses-tracking)
-- [Hop to Session 1: Generate Detailed Design using ChatGPT](#session-1-generate-detailed-design)
+Click on the link below to jump directly at the relevant chapters:
+- [1. Start with section *Full scale example*](#full-scale-example-excel-tool-for-expenses-tracking)
+- [2. Straight to Session 1: Generate Detailed Design using ChatGPT](#session-1-generate-detailed-design)
+
+## Reading Guide
+There are 3 ways to read this article:
+1. simplest, you only need this browser: read the article (this page), read the prompts (follow the hyperlinks provided in the text), read the answers that my chatbot gave(follow the hyperlinks)
+2. medium involvement, in this browser open also a chatbot (ChatGPT or Google Gemini), copy paste the prompts and read what your chatbot says
+3. best involvement, you also need Excel: read the prompts and answers, follow the instructions of the chatbot to create the Excel application.
 
 ## AI-powered Workflow in a Nutshell
 ![overview](./images/000_overview.png)
