@@ -37,7 +37,7 @@ Hints:
 - Often, irrelevant criticisms of the chatbot about your prototype announces future misunderstandings when asking it to generate code. Clarify these criticisms and start a new session.
 - Start new session as often as practical, as soon as the chatbot has achieved a significant step. This will clean the context, focus the discussion and avoid hallucinations.
 
-Illustration:
+How this article illustrates the workflow:
 - Step A.1 is illustrated in "No-Think" mode by prompt 1 [(./prompt_01.md)](./prompt_01.md), the answer of ChatGPT is [(answer_01.md)](./answer_01.md)
 - Step A.1 is illustrated in "Think" mode by the same prompt 1 [(prompt_01.md)](./prompt_01.md), the answer of ChatGPT is [(answer_01b.md)](./answer_01b.md)
 - Step A.2 is a question for example by prompt 2 [(prompt_02.md)](./prompt_02.md), the clarification of ChatGPT is [(answer_02.md)](./answer_02.md)
