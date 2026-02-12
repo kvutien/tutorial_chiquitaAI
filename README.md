@@ -23,6 +23,8 @@ There are 3 ways to read this article:
 3. best involvement, you also need Excel: read the prompts and answers, follow the instructions of the chatbot to create the Excel application.
 
 ## AI-powered Workflow in a Nutshell
+The following workflow applies independently of the programming language (Excel, JavaScript, Python etc.)
+
 ![overview](./images/000_overview.png)
 - Step A: 1️⃣ describe what you want 2️⃣ have the bot criticize and suggest improvements 3️⃣ have it generate a detailed design. Reiterate once, to trap eventual hallucinations.
 - Step B: start a new session, 1️⃣ paste the design, 2️⃣ have the AI chatbot generate the code, 3️⃣ have it criticize its code. Reiterate once, to trap eventual hallucinations.
